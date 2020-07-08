@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomProgressbar">
+        <attr name="relativesite">
+            <enum name="top" value="0" />
+            <enum name="top_move" value="1" />
+            <enum name="gone" value="2" />
+        </attr>
+        <attr name="textPointColor" format="color" />
+        <attr name="textPointSize" format="dimension" />
+        <attr name="progressHeight" format="dimension" />
+        <attr name="progressbgColor" format="color" />
+        <attr name="progressSpendColor" format="color" />
+        <attr name="defaultProgress" format="integer" />
+        <attr name="innerPointRadius" format="integer" />
+        <attr name="outerPointRadius" format="integer" />
+        <attr name="pointImage" format="reference" />
+    </declare-styleable>
+</resources>
