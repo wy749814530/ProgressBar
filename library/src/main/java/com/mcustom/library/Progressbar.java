@@ -58,7 +58,7 @@ public class Progressbar extends View implements View.OnTouchListener {
     private int progressbgColor = 0xff999999;
     private int progressSpendColor = 0xff25d1d3;
     private int progressHeight = 6; // 进度条高度
-    private int progress = 15;       // 进度
+    private int progress = 50;       // 进度
 
     /**
      * 进度原点画笔
@@ -74,7 +74,7 @@ public class Progressbar extends View implements View.OnTouchListener {
      * progress取值范围
      */
     private int minProgress = 0;
-    private int maxProgress = 25;
+    private int maxProgress = 100;
     /**
      * 间距
      */
@@ -118,6 +118,8 @@ public class Progressbar extends View implements View.OnTouchListener {
             progressSpendColor = attributes.getColor(R.styleable.CustomProgressbar_progressSpendColor, progressSpendColor);
             progressHeight = (int) attributes.getDimension(R.styleable.CustomProgressbar_progressHeight, progressHeight);
             progress = attributes.getInt(R.styleable.CustomProgressbar_defaultProgress, progress);
+            maxProgress = attributes.getInt(R.styleable.CustomProgressbar_maxProgress, 100);
+            minProgress = attributes.getInt(R.styleable.CustomProgressbar_minProgress, 0);
             innerRadius = attributes.getInt(R.styleable.CustomProgressbar_innerPointRadius, 0);
             outerRadius = attributes.getInt(R.styleable.CustomProgressbar_outerPointRadius, 0);
             pointImageResId = attributes.getResourceId(R.styleable.CustomProgressbar_pointImage, 0);

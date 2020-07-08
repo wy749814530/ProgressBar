@@ -16,6 +16,8 @@
         android:layout_marginRight="20dp"
         apps:defaultProgress="15"
         apps:innerPointRadius="3"
+        apps:maxProgress="25"
+        apps:minProgress="1"
         apps:outerPointRadius="9"
         apps:progressHeight="3dp"
         apps:progressSpendColor="#25d1d3"

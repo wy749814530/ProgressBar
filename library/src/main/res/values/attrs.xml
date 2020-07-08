@@ -11,6 +11,8 @@
         <attr name="progressHeight" format="dimension" />
         <attr name="progressbgColor" format="color" />
         <attr name="progressSpendColor" format="color" />
+        <attr name="maxProgress" format="integer" />
+        <attr name="minProgress" format="integer" />
         <attr name="defaultProgress" format="integer" />
         <attr name="innerPointRadius" format="integer" />
         <attr name="outerPointRadius" format="integer" />
