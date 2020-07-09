@@ -9,20 +9,22 @@
 
     <com.mcustom.library.Progressbar
         android:id="@+id/progressbar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="20dp"
         apps:defaultProgress="15"
-        apps:innerPointRadius="3"
+        apps:innerPointRadius="5"
         apps:maxProgress="25"
         apps:minProgress="1"
-        apps:outerPointRadius="9"
+        apps:outerPointRadius="10"
         apps:progressHeight="3dp"
         apps:progressSpendColor="#25d1d3"
         apps:progressbgColor="#eeeeee"
-        apps:relativesite="top_move" />
+        apps:relativesite="top_move"
+        apps:textPointSize="18dp"
+        apps:textUnit=" fps" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,6 +32,7 @@
         android:layout_marginTop="50dp">
 
         <Button
+            android:id="@+id/btnMin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="setMinProgress"

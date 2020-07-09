@@ -17,5 +17,6 @@
         <attr name="innerPointRadius" format="integer" />
         <attr name="outerPointRadius" format="integer" />
         <attr name="pointImage" format="reference" />
+        <attr name="textUnit" format="string" />
     </declare-styleable>
 </resources>

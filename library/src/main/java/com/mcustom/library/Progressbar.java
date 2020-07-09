@@ -1,6 +1,7 @@
 package com.mcustom.library;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +18,13 @@ import android.view.ViewGroup;
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 /**
  * @WYU-WIN
  * @date 2020/7/7 0007.
  * description：
  */
 public class Progressbar extends View implements View.OnTouchListener {
+    private String TAG = "ProgressBar";
     boolean ENABLE_CTION_MOVE = false;
     /**
      * 进度相对进度条的位置
@@ -48,22 +48,18 @@ public class Progressbar extends View implements View.OnTouchListener {
     private Rect textRect;
     private Paint textPoint;
     private int textPointColor = 0xff25d1d3;
-    private int textPointSize = 15;
-    private String unit = "fps";
+    private float textPointSize = 15;
+    private String unit = "";
     /**
      * 进度条画笔属性
      */
     private Paint progressPoint;
     private Paint progressSpendPoint;
+    private Paint circleHollowPoint;
     private int progressbgColor = 0xff999999;
     private int progressSpendColor = 0xff25d1d3;
     private int progressHeight = 6; // 进度条高度
     private int progress = 50;       // 进度
-
-    /**
-     * 进度原点画笔
-     */
-    private Paint circleHollowPoint;
     /**
      * 当前进度坐标
      */
@@ -76,17 +72,20 @@ public class Progressbar extends View implements View.OnTouchListener {
     private int minProgress = 0;
     private int maxProgress = 100;
     /**
-     * 间距
-     */
-    private int marginTopAndBottom = 5;
-    private int marginLeft, marginRight;
-    private int progressBarWidth = 1080;
-    /**
      * 圆圈半径
      */
     private float innerRadius, outerRadius;
     private int pointImageResId = 0;
     Bitmap bitmap;
+
+    /**
+     * 间距
+     */
+    private int marginTopAndBottom = 5;
+    private float marginLeft;
+    private float marginRight;
+    private float progressBarWidth = 1080;
+
     private OnProgressbarChangeListener mListener;
 
     public Progressbar(Context context) {
@@ -112,7 +111,7 @@ public class Progressbar extends View implements View.OnTouchListener {
         if (attrs != null) {
             TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.CustomProgressbar);
             textPointColor = attributes.getColor(R.styleable.CustomProgressbar_textPointColor, textPointColor);
-            textPointSize = (int) attributes.getDimension(R.styleable.CustomProgressbar_textPointSize, textPointSize);
+            textPointSize = attributes.getDimensionPixelSize(R.styleable.CustomProgressbar_textPointSize, 16);
             int site = attributes.getInt(R.styleable.CustomProgressbar_relativesite, relativeSite.ordinal());
             progressbgColor = attributes.getColor(R.styleable.CustomProgressbar_progressbgColor, progressbgColor);
             progressSpendColor = attributes.getColor(R.styleable.CustomProgressbar_progressSpendColor, progressSpendColor);
@@ -123,6 +122,7 @@ public class Progressbar extends View implements View.OnTouchListener {
             innerRadius = attributes.getInt(R.styleable.CustomProgressbar_innerPointRadius, 0);
             outerRadius = attributes.getInt(R.styleable.CustomProgressbar_outerPointRadius, 0);
             pointImageResId = attributes.getResourceId(R.styleable.CustomProgressbar_pointImage, 0);
+            unit = attributes.getString(R.styleable.CustomProgressbar_textUnit);
 
             if (site == 0) {
                 relativeSite = SITE.TOP;
@@ -146,8 +146,7 @@ public class Progressbar extends View implements View.OnTouchListener {
                 outerRadius = progressHeight * 1.4f;
             }
         }
-
-
+        Log.i(TAG, "textPointSize : " + textPointSize);
         textRect = new Rect();
 
         textPoint = new Paint();
@@ -188,17 +187,19 @@ public class Progressbar extends View implements View.OnTouchListener {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Log.i("Progressbar", " ==== onMeasure ==== " + getWidth() + " , " + getHeight());
         invalidateLayout();
     }
 
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        invalidateLayout();
+    }
 
     protected void invalidateLayout() {
         float progressH;
-
-        String text = "100" + unit;
+        String text = "159" + unit;
         textPoint.getTextBounds(text, 0, text.length(), textRect);
-
         if (pointImageResId != 0) {
             bitmap = BitmapFactory.decodeResource(getResources(), pointImageResId);
             if (bitmap != null) {
@@ -206,6 +207,7 @@ public class Progressbar extends View implements View.OnTouchListener {
                 innerRadius = outerRadius;
             }
         }
+
         marginLeft = marginRight = (int) (outerRadius + 4);
         progressBarWidth = getWidth() - marginLeft - marginRight;
         progressH = progressHeight * 1.4f;
@@ -222,8 +224,8 @@ public class Progressbar extends View implements View.OnTouchListener {
 
         ViewGroup.LayoutParams layoutParams = getLayoutParams();
         layoutParams.height = maxHeight;
+        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         setLayoutParams(layoutParams);
-        Log.i("Progressbar", " ==== onMeasure ==== " + getWidth() + " , " + getHeight() + " , " + maxHeight);
     }
 
     @Override
@@ -235,7 +237,6 @@ public class Progressbar extends View implements View.OnTouchListener {
         canvas.drawRect(marginLeft, progressTop, getWidth() - marginRight, progressTop + progressHeight, progressPoint);
         // 画进度
         canvas.drawRect(marginLeft, progressTop, progressLeft, progressTop + progressHeight, progressSpendPoint);
-
 
         if (bitmap == null) {
             // 画圆点
@@ -260,17 +261,16 @@ public class Progressbar extends View implements View.OnTouchListener {
                     // 在最左边
                     textX = 10;
                 }
-                canvas.drawText(text, textX, marginTopAndBottom + textRect.height() / 2, textPoint);
+                canvas.drawText(text, textX - textRect.left, marginTopAndBottom - textRect.top, textPoint);
             } else {
                 float textX = (getWidth() - textRect.width()) / 2;
-                canvas.drawText(text, textX, marginTopAndBottom, textPoint);
+                canvas.drawText(text, textX - textRect.left, marginTopAndBottom - textRect.top, textPoint);
             }
         }
     }
 
     private boolean isDragItem(float x, float y) {
         double dis = Math.sqrt(Math.pow(CurrentX - x, 2) + Math.pow(CurrentY - y, 2));
-        Log.i("Progressbar", "isDragButton : " + dis);
         if (dis < 150) {
             return true;
         }
@@ -287,6 +287,8 @@ public class Progressbar extends View implements View.OnTouchListener {
 
     public interface OnProgressbarChangeListener {
         void onProgressChanged(Progressbar progressbar, int progress);
+
+        void onDragging(Progressbar progressbar, int progress);
     }
 
     private float downX;
@@ -324,6 +326,9 @@ public class Progressbar extends View implements View.OnTouchListener {
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             ENABLE_CTION_MOVE = false;
+            if (mListener != null) {
+                mListener.onDragging(this, progress);
+            }
         }
         if (mListener != null) {
             mListener.onProgressChanged(this, progress);
@@ -331,7 +336,6 @@ public class Progressbar extends View implements View.OnTouchListener {
         invalidate();
         return true;
     }
-
 
     //======================================================
     // 对外方法
@@ -389,7 +393,7 @@ public class Progressbar extends View implements View.OnTouchListener {
      * @param progress
      * @return
      */
-    public Progressbar setPrpgress(int progress) {
+    public Progressbar setProgress(int progress) {
         this.progress = progress;
         invalidate();
         return this;
@@ -401,7 +405,7 @@ public class Progressbar extends View implements View.OnTouchListener {
      * @param color
      * @return
      */
-    public Progressbar setPrpgressBgColor(int color) {
+    public Progressbar setProgressBgColor(int color) {
         this.progressbgColor = color;
         progressPoint.setColor(color);
         invalidate();
@@ -427,9 +431,9 @@ public class Progressbar extends View implements View.OnTouchListener {
      * @param size
      * @return
      */
-    public Progressbar setTextSize(int size) {
-        this.textPointSize = size;
-        textPoint.setTextSize(size);
+    public Progressbar setTextSize(float size) {
+        this.textPointSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, size, getResources().getDisplayMetrics());
+        textPoint.setTextSize(textPointSize);
         invalidateLayout();
         return this;
     }

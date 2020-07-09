@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.mcustom.library.Progressbar;
@@ -13,6 +14,7 @@ import com.mcustom.library.Progressbar;
 public class MainActivity extends AppCompatActivity {
     Progressbar progressbar;
     EditText edMinProgress, edMaxProgress, edTextSize, edUnit, edInnerRadius, edOuterRadius;
+    Button btnMin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +32,19 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(Progressbar progressbar, int progress) {
                 Log.i("MainActivity", "progress : " + progress);
             }
+
+            @Override
+            public void onDragging(Progressbar progressbar, int progress) {
+
+            }
         });
-        progressbar.setPrpgressBgColor(ContextCompat.getColor(this, R.color.gray_light));
+        progressbar.setProgressBgColor(ContextCompat.getColor(this, R.color.gray_light));
         progressbar.setProgressSpendColor(ContextCompat.getColor(this, R.color.green_25d1d3));
+
+
+        btnMin = findViewById(R.id.btnMin);
+        btnMin.setTextSize(16);
+//        progressbar.setProgress(12);
     }
 
     public void setMinProgress(View view) {
