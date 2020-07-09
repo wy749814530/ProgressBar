@@ -271,7 +271,7 @@ public class Progressbar extends View implements View.OnTouchListener {
 
     private boolean isDragItem(float x, float y) {
         double dis = Math.sqrt(Math.pow(CurrentX - x, 2) + Math.pow(CurrentY - y, 2));
-        if (dis < 150) {
+        if (dis < 60) {
             return true;
         }
         return false;
@@ -325,10 +325,10 @@ public class Progressbar extends View implements View.OnTouchListener {
                 }
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            ENABLE_CTION_MOVE = false;
-            if (mListener != null) {
+            if (mListener != null && ENABLE_CTION_MOVE) {
                 mListener.onDragging(this, progress);
             }
+            ENABLE_CTION_MOVE = false;
         }
         if (mListener != null) {
             mListener.onProgressChanged(this, progress);
