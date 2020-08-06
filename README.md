@@ -109,9 +109,9 @@ setTextColor(R.color.red)
 自定义带有成功与失败状态的圆形进度控件
 <center>
 <figure>
-    <img src="https://img-blog.csdnimg.cn/20200806152357564.jpg" alt="图片替换文本" width="200" height="355" align="left" />
-    <img src="https://img-blog.csdnimg.cn/20200806151031320.jpg" alt="图片替换文本" width="200" height="355" align="cehter" />
-    <img src="https://img-blog.csdnimg.cn/20200806151031279.jpg" alt="图片替换文本" width="200" height="355" align="right" />
+    <img src="https://img-blog.csdnimg.cn/20200806152357564.jpg" alt="图片替换文本" width="160" height="355" align="left" />
+    <img src="https://img-blog.csdnimg.cn/20200806151031320.jpg" alt="图片替换文本" width="160" height="355" align="cehter" />
+    <img src="https://img-blog.csdnimg.cn/20200806151031279.jpg" alt="图片替换文本" width="160" height="355" align="right" />
 </figure>
 </center>
 
