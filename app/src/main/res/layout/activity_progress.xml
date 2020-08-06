@@ -4,27 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <com.mcustom.library.Progressbar
-        android:id="@+id/progressbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="20dp"
-        apps:defaultProgress="15"
-        apps:innerPointRadius="5"
-        apps:maxProgress="25"
-        apps:minProgress="1"
-        apps:outerPointRadius="10"
-        apps:progressHeight="3dp"
-        apps:progressSpendColor="#25d1d3"
-        apps:progressbgColor="#eeeeee"
-        apps:relativesite="top_move"
-        apps:textPointSize="18dp"
-        apps:textUnit=" fps" />
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -128,4 +108,40 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <com.mcustom.library.LineProgressbar
+        android:id="@+id/progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="20dp"
+        apps:defaultProgress="15"
+        apps:innerPointRadius="5"
+        apps:maxProgress="25"
+        apps:minProgress="1"
+        apps:outerPointRadius="10"
+        apps:progressHeight="3dp"
+        apps:progressSpendColor="#25d1d3"
+        apps:progressbgColor="#eeeeee"
+        apps:relativesite="top_move"
+        apps:textPointSize="18dp"
+        apps:textUnit=" fps" />
+
+    <com.mcustom.library.RoundProgressBar
+        android:id="@+id/roundProgressBar2"
+        android:layout_width="80dip"
+        android:layout_height="80dip"
+        android:layout_alignLeft="@+id/roundProgressBar1"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:textColor="#9A32CD"
+        android:textSize="15sp"
+        apps:roundColor="#D1D1D1"
+        apps:roundProgressColor="#25d1d3"
+        apps:roundWidth="5dip"
+        apps:textIsDisplayable="true" />
+
+
 </LinearLayout>

@@ -1,73 +1,31 @@
 package com.mcustom.progressbar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
-import com.mcustom.library.Progressbar;
 
 public class MainActivity extends AppCompatActivity {
-    Progressbar progressbar;
-    EditText edMinProgress, edMaxProgress, edTextSize, edUnit, edInnerRadius, edOuterRadius;
-    Button btnMin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        progressbar = findViewById(R.id.progressbar);
-        edMinProgress = findViewById(R.id.edMinProgress);
-        edMaxProgress = findViewById(R.id.edMaxProgress);
-        edTextSize = findViewById(R.id.edTextSize);
-        edUnit = findViewById(R.id.edUnit);
-        edInnerRadius = findViewById(R.id.edInnerRadius);
-        edOuterRadius = findViewById(R.id.edOuterRadius);
-        progressbar.setOnProgressbarChangeListener(new Progressbar.OnProgressbarChangeListener() {
-            @Override
-            public void onProgressChanged(Progressbar progressbar, int progress) {
-                Log.i("MainActivity", "progress : " + progress);
-            }
+        setContentView(R.layout.activity_mian);
 
-            @Override
-            public void onDragging(Progressbar progressbar, int progress) {
-
-            }
-        });
-        progressbar.setProgressBgColor(ContextCompat.getColor(this, R.color.gray_light));
-        progressbar.setProgressSpendColor(ContextCompat.getColor(this, R.color.green_25d1d3));
-
-
-        btnMin = findViewById(R.id.btnMin);
-        btnMin.setTextSize(16);
-//        progressbar.setProgress(12);
     }
 
-    public void setMinProgress(View view) {
-        progressbar.setMinProgress(Integer.parseInt(edMinProgress.getText().toString()));
+    public void gotoWaterPregress(View view) {
+        startActivity(new Intent(this, WaterWaveActivity.class));
     }
 
-    public void setMaxProgress(View view) {
-        progressbar.setMaxProgress(Integer.parseInt(edMaxProgress.getText().toString()));
+    public void gotoPregress(View view) {
+        startActivity(new Intent(this, ProgressActivity.class));
     }
 
-    public void setTextSize(View view) {
-        progressbar.setTextSize(Integer.parseInt(edTextSize.getText().toString()));
-    }
-
-    public void setUnit(View view) {
-        progressbar.setUnit(edUnit.getText().toString());
-    }
-
-    public void setInnerRadius (View view) {
-        progressbar.setInnerRadius(Integer.parseInt(edInnerRadius.getText().toString()));
-    }
-
-    public void setOuterRadius(View view) {
-        progressbar.setOuterRadius(Integer.parseInt(edOuterRadius.getText().toString()));
+    public void gotoResultStatus(View view) {
+        startActivity(new Intent(this, ResultStatusActivity.class));
     }
 }

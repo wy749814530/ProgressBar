@@ -1,7 +1,6 @@
 package com.mcustom.library;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,10 +19,10 @@ import androidx.annotation.Nullable;
 
 /**
  * @WYU-WIN
- * @date 2020/7/7 0007.
- * description：
+ * @date 2020/6/27 2114.
+ * description：  线性进度条，带数据变化跟踪，允许设置最大值和最小值，
  */
-public class Progressbar extends View implements View.OnTouchListener {
+public class LineProgressbar extends View implements View.OnTouchListener {
     private String TAG = "ProgressBar";
     boolean ENABLE_CTION_MOVE = false;
     /**
@@ -88,16 +87,16 @@ public class Progressbar extends View implements View.OnTouchListener {
 
     private OnProgressbarChangeListener mListener;
 
-    public Progressbar(Context context) {
+    public LineProgressbar(Context context) {
         super(context);
     }
 
-    public Progressbar(Context context, @Nullable AttributeSet attrs) {
+    public LineProgressbar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initView(context, attrs);
     }
 
-    public Progressbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public LineProgressbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context, attrs);
     }
@@ -286,9 +285,9 @@ public class Progressbar extends View implements View.OnTouchListener {
     }
 
     public interface OnProgressbarChangeListener {
-        void onProgressChanged(Progressbar progressbar, int progress);
+        void onProgressChanged(LineProgressbar progressbar, int progress);
 
-        void onDragging(Progressbar progressbar, int progress);
+        void onDragging(LineProgressbar progressbar, int progress);
     }
 
     private float downX;
@@ -346,7 +345,7 @@ public class Progressbar extends View implements View.OnTouchListener {
      * @param radius
      * @return
      */
-    public Progressbar setInnerRadius(float radius) {
+    public LineProgressbar setInnerRadius(float radius) {
         if (outerRadius >= radius) {
             innerRadius = radius;
         }
@@ -360,7 +359,7 @@ public class Progressbar extends View implements View.OnTouchListener {
      * @param radius
      * @return
      */
-    public Progressbar setOuterRadius(float radius) {
+    public LineProgressbar setOuterRadius(float radius) {
         if (innerRadius <= radius) {
             outerRadius = radius;
             invalidateLayout();
@@ -368,7 +367,7 @@ public class Progressbar extends View implements View.OnTouchListener {
         return this;
     }
 
-    public Progressbar setPointImage(@IdRes int resId) {
+    public LineProgressbar setPointImage(@IdRes int resId) {
         pointImageResId = resId;
         invalidateLayout();
         return this;
@@ -379,7 +378,7 @@ public class Progressbar extends View implements View.OnTouchListener {
      *
      * @param site
      */
-    public Progressbar setRelativeSite(SITE site) {
+    public LineProgressbar setRelativeSite(SITE site) {
         if (relativeSite != site) {
             relativeSite = site;
             invalidateLayout();
@@ -393,7 +392,7 @@ public class Progressbar extends View implements View.OnTouchListener {
      * @param progress
      * @return
      */
-    public Progressbar setProgress(int progress) {
+    public LineProgressbar setProgress(int progress) {
         this.progress = progress;
         invalidate();
         return this;
@@ -405,7 +404,7 @@ public class Progressbar extends View implements View.OnTouchListener {
      * @param color
      * @return
      */
-    public Progressbar setProgressBgColor(int color) {
+    public LineProgressbar setProgressBgColor(int color) {
         this.progressbgColor = color;
         progressPoint.setColor(color);
         invalidate();
@@ -418,7 +417,7 @@ public class Progressbar extends View implements View.OnTouchListener {
      * @param color
      * @return
      */
-    public Progressbar setProgressSpendColor(int color) {
+    public LineProgressbar setProgressSpendColor(int color) {
         this.progressSpendColor = color;
         progressSpendPoint.setColor(color);
         invalidate();
@@ -431,7 +430,7 @@ public class Progressbar extends View implements View.OnTouchListener {
      * @param size
      * @return
      */
-    public Progressbar setTextSize(float size) {
+    public LineProgressbar setTextSize(float size) {
         this.textPointSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, size, getResources().getDisplayMetrics());
         textPoint.setTextSize(textPointSize);
         invalidateLayout();
@@ -444,7 +443,7 @@ public class Progressbar extends View implements View.OnTouchListener {
      * @param color
      * @return
      */
-    public Progressbar setTextColor(int color) {
+    public LineProgressbar setTextColor(int color) {
         this.textPointColor = color;
         textPoint.setColor(color);
         invalidate();
@@ -457,7 +456,7 @@ public class Progressbar extends View implements View.OnTouchListener {
      * @param unit
      * @return
      */
-    public Progressbar setUnit(String unit) {
+    public LineProgressbar setUnit(String unit) {
         this.unit = unit;
         invalidate();
         return this;
@@ -469,7 +468,7 @@ public class Progressbar extends View implements View.OnTouchListener {
      * @param progress
      * @return
      */
-    public Progressbar setMaxProgress(int progress) {
+    public LineProgressbar setMaxProgress(int progress) {
         this.maxProgress = progress;
         if (this.progress > progress) {
             this.progress = progress;
@@ -484,7 +483,7 @@ public class Progressbar extends View implements View.OnTouchListener {
      * @param progress
      * @return
      */
-    public Progressbar setMinProgress(int progress) {
+    public LineProgressbar setMinProgress(int progress) {
         this.minProgress = progress;
         if (this.progress < progress) {
             this.progress = progress;

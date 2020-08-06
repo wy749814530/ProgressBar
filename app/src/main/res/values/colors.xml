@@ -5,5 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="green_25d1d3">#25d1d3</color>
     <color name="gray_light">#eeeeee</color>
-
+    <color name="load_success">#03a44e</color>
+    <color name="load_failure">#de0e26</color>
+    <color name="load">#f506d9</color>
 </resources>

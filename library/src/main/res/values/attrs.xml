@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <attr name="maxProgress" format="integer" />
+
     <declare-styleable name="CustomProgressbar">
         <attr name="relativesite">
             <enum name="top" value="0" />
@@ -11,12 +14,55 @@
         <attr name="progressHeight" format="dimension" />
         <attr name="progressbgColor" format="color" />
         <attr name="progressSpendColor" format="color" />
-        <attr name="maxProgress" format="integer" />
+        <attr name="maxProgress" />
         <attr name="minProgress" format="integer" />
         <attr name="defaultProgress" format="integer" />
         <attr name="innerPointRadius" format="integer" />
         <attr name="outerPointRadius" format="integer" />
         <attr name="pointImage" format="reference" />
         <attr name="textUnit" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundProgressBar">
+        <attr name="roundColor" format="color" />
+        <attr name="roundProgressColor" format="color" />
+        <attr name="roundWidth" format="dimension"></attr>
+        <attr name="heartbeatColor" format="color" />
+        <attr name="successColor" format="color" />
+        <attr name="failedColor" format="color" />
+        <attr name="statusStrokeWidth" format="dimension"></attr>
+        <attr name="android:textColor" />
+        <attr name="android:textSize" />
+        <attr name="percentColor" format="reference|color" />
+        <attr name="percentSize" format="dimension" />
+        <attr name="max" format="integer"></attr>
+        <attr name="textIsDisplayable" format="boolean"></attr>
+        <attr name="style">
+            <enum name="STROKE" value="0"></enum>
+            <enum name="FILL" value="1"></enum>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ResultStatusView">
+        <attr name="progress_color" format="color" />
+        <attr name="progress_width" format="dimension" />
+        <attr name="progress_radius" format="dimension" />
+        <attr name="load_success_color" format="color" />
+        <attr name="load_failure_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="WaterWaveProgress">
+        <attr name="progressWidth" format="dimension" />
+        <attr name="fontSize" format="dimension" />
+        <attr name="progressColor" format="color" />
+        <attr name="progressBgColor" format="color" />
+        <attr name="waterWaveColor" format="color" />
+        <attr name="waterWaveBgColor" format="color" />
+        <attr name="progress2WaterWidth" format="dimension" />
+        <attr name="showProgress" format="boolean" />
+        <attr name="showNumerical" format="boolean" />
+        <attr name="android:textColor" format="color" />
+        <attr name="progress" format="integer" />
+        <attr name="maxProgress" />
     </declare-styleable>
 </resources>
