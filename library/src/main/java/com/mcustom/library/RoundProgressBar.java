@@ -68,11 +68,6 @@ public class RoundProgressBar extends View {
      */
     private boolean textIsDisplayable;
 
-    /**
-     * 进度的风格，实心或者空心
-     */
-    private int style;
-
     public static final int STROKE = 0;
     public static final int FILL = 1;
 
@@ -99,7 +94,6 @@ public class RoundProgressBar extends View {
             roundWidth = mTypedArray.getDimension(R.styleable.RoundProgressBar_roundWidth, 5);
             max = mTypedArray.getInteger(R.styleable.RoundProgressBar_max, 100);
             textIsDisplayable = mTypedArray.getBoolean(R.styleable.RoundProgressBar_textIsDisplayable, true);
-            style = mTypedArray.getInt(R.styleable.RoundProgressBar_style, 0);
             mTypedArray.recycle();
         }
 
@@ -172,7 +166,7 @@ public class RoundProgressBar extends View {
         String percentText = percent + "";
         paint.getTextBounds(percentText, 0, percentText.length(), bounds);
 
-        if (textIsDisplayable && percent != 0 && style == STROKE) {
+        if (textIsDisplayable && percent != 0) {
             canvas.drawText(percent + "", centre - bounds.width() / 2 - bounds.left, centre + bounds.height() / 2 - bounds.bottom, progressTextPaint); //画出进度百分比
         }
         Log.i("RoundProgressBar", "width 1 : " + bounds.width() + " , height 1 : " + bounds.height());
@@ -187,20 +181,8 @@ public class RoundProgressBar extends View {
         paint.setColor(roundProgressColor);  //设置进度的颜色
         RectF oval = new RectF(centre - radius, centre - radius, centre + radius, centre + radius);  //用于定义的圆弧的形状和大小的界限
 
-        switch (style) {
-            case STROKE: {
-                paint.setStyle(Paint.Style.STROKE);
-                canvas.drawArc(oval, 0, 360 * progress / max, false, paint);  //根据进度画圆弧
-                break;
-            }
-            case FILL: {
-                paint.setStyle(Paint.Style.FILL_AND_STROKE);
-                if (progress != 0)
-                    canvas.drawArc(oval, 0, 360 * progress / max, true, paint);  //根据进度画圆弧
-                break;
-            }
-        }
-
+        paint.setStyle(Paint.Style.STROKE);
+        canvas.drawArc(oval, 0, 360 * progress / max, false, paint);  //根据进度画圆弧
     }
 
 

@@ -93,10 +93,6 @@ public class RoundProgressStatusBar extends View {
      */
     private boolean textIsDisplayable;
 
-    /**
-     * 进度的风格，实心或者空心
-     */
-    private int style;
 
     public static final int STROKE = 0;
     public static final int FILL = 1;
@@ -128,26 +124,25 @@ public class RoundProgressStatusBar extends View {
     public RoundProgressStatusBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         if (attrs != null) {
-            TypedArray mTypedArray = context.obtainStyledAttributes(attrs, R.styleable.RoundProgressBar);
+            TypedArray mTypedArray = context.obtainStyledAttributes(attrs, R.styleable.RoundProgressStatusBar);
 
             //获取自定义属性和默认值
-            roundColor = mTypedArray.getColor(R.styleable.RoundProgressBar_roundColor, roundColor);
-            roundProgressColor = mTypedArray.getColor(R.styleable.RoundProgressBar_roundProgressColor, roundProgressColor);
-            textColor = mTypedArray.getColor(R.styleable.RoundProgressBar_android_textColor, textColor);
-            textSize = mTypedArray.getDimension(R.styleable.RoundProgressBar_android_textSize, textSize);
-            percentColor = mTypedArray.getColor(R.styleable.RoundProgressBar_percentColor, percentColor);
-            percentSize = mTypedArray.getDimension(R.styleable.RoundProgressBar_percentSize, percentSize);
-            heartbeatColor = mTypedArray.getColor(R.styleable.RoundProgressBar_heartbeatColor, heartbeatColor);
+            roundColor = mTypedArray.getColor(R.styleable.RoundProgressStatusBar_roundColor, roundColor);
+            roundProgressColor = mTypedArray.getColor(R.styleable.RoundProgressStatusBar_roundProgressColor, roundProgressColor);
+            textColor = mTypedArray.getColor(R.styleable.RoundProgressStatusBar_android_textColor, textColor);
+            textSize = mTypedArray.getDimension(R.styleable.RoundProgressStatusBar_android_textSize, textSize);
+            percentColor = mTypedArray.getColor(R.styleable.RoundProgressStatusBar_percentColor, percentColor);
+            percentSize = mTypedArray.getDimension(R.styleable.RoundProgressStatusBar_percentSize, percentSize);
+            heartbeatColor = mTypedArray.getColor(R.styleable.RoundProgressStatusBar_heartbeatColor, heartbeatColor);
 
-            successColor = mTypedArray.getColor(R.styleable.RoundProgressBar_successColor, successColor);
-            failedColor = mTypedArray.getColor(R.styleable.RoundProgressBar_failedColor, failedColor);
-            statusStrokeWidth = mTypedArray.getDimension(R.styleable.RoundProgressBar_statusStrokeWidth, 6);
+            successColor = mTypedArray.getColor(R.styleable.RoundProgressStatusBar_successColor, successColor);
+            failedColor = mTypedArray.getColor(R.styleable.RoundProgressStatusBar_failedColor, failedColor);
+            statusStrokeWidth = mTypedArray.getDimension(R.styleable.RoundProgressStatusBar_statusStrokeWidth, 6);
 
-            percentSize = mTypedArray.getDimension(R.styleable.RoundProgressBar_percentSize, percentSize);
-            roundWidth = mTypedArray.getDimension(R.styleable.RoundProgressBar_roundWidth, 5);
-            max = mTypedArray.getInteger(R.styleable.RoundProgressBar_max, 100);
-            textIsDisplayable = mTypedArray.getBoolean(R.styleable.RoundProgressBar_textIsDisplayable, true);
-            style = mTypedArray.getInt(R.styleable.RoundProgressBar_style, 0);
+            percentSize = mTypedArray.getDimension(R.styleable.RoundProgressStatusBar_percentSize, percentSize);
+            roundWidth = mTypedArray.getDimension(R.styleable.RoundProgressStatusBar_roundWidth, 5);
+            max = mTypedArray.getInteger(R.styleable.RoundProgressStatusBar_max, 100);
+            textIsDisplayable = mTypedArray.getBoolean(R.styleable.RoundProgressStatusBar_textIsDisplayable, true);
             mTypedArray.recycle();
         }
 
@@ -255,21 +250,8 @@ public class RoundProgressStatusBar extends View {
              * 画进度外圈圆前景色，区域与进度等同
              */
             RectF oval = new RectF(centre - radius, centre - radius, centre + radius, centre + radius);  //用于定义的圆弧的形状和大小的界限
-            switch (style) {
-                case STROKE: {
-                    // 空心进度
-                    roundProgressPaint.setStyle(Paint.Style.STROKE);
-                    canvas.drawArc(oval, 0, 360 * progress / max, false, roundProgressPaint);  //根据进度画圆弧
-                    break;
-                }
-                case FILL: {
-                    // 实心进度
-                    roundProgressPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-                    if (progress != 0)
-                        canvas.drawArc(oval, 0, 360 * progress / max, true, roundProgressPaint);  //根据进度画圆弧
-                    break;
-                }
-            }
+            roundProgressPaint.setStyle(Paint.Style.STROKE);
+            canvas.drawArc(oval, 0, 360 * progress / max, false, roundProgressPaint);  //根据进度画圆弧
 
 
             int percent = (int) (((float) progress / (float) max) * 100);  //中间的进度百分比，先转换成float在进行除法运算，不然都为0
@@ -277,7 +259,7 @@ public class RoundProgressStatusBar extends View {
             String percentText = percent + "";
             progressTextPaint.getTextBounds(percentText, 0, percentText.length(), bounds);
 
-            if (textIsDisplayable && percent != 0 && style == STROKE) {
+            if (textIsDisplayable && percent != 0) {
                 canvas.drawText(percent + "", centre - bounds.width() / 2 - bounds.left, centre + bounds.height() / 2 - bounds.bottom, progressTextPaint); //画出进度百分比
             }
             canvas.drawText("%", centre + percentBounds.width() / 2, centre + percentBounds.height(), percentPaint);

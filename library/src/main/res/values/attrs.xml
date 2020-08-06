@@ -3,6 +3,19 @@
 
     <attr name="maxProgress" format="integer" />
 
+    <attr name="roundColor" format="color" />
+    <attr name="roundProgressColor" format="color" />
+    <attr name="roundWidth" format="dimension"></attr>
+    <attr name="statusStrokeWidth" format="dimension"></attr>
+    <attr name="percentColor" format="reference|color" />
+    <attr name="percentSize" format="dimension" />
+    <attr name="max" format="integer"></attr>
+    <attr name="textIsDisplayable" format="boolean"></attr>
+    <attr name="style">
+        <enum name="STROKE" value="0"></enum>
+        <enum name="FILL" value="1"></enum>
+    </attr>
+
     <declare-styleable name="CustomProgressbar">
         <attr name="relativesite">
             <enum name="top" value="0" />
@@ -24,23 +37,31 @@
     </declare-styleable>
 
     <declare-styleable name="RoundProgressBar">
-        <attr name="roundColor" format="color" />
-        <attr name="roundProgressColor" format="color" />
-        <attr name="roundWidth" format="dimension"></attr>
+        <attr name="roundColor" />
+        <attr name="roundProgressColor" />
+        <attr name="roundWidth"></attr>
+        <attr name="android:textColor" />
+        <attr name="android:textSize" />
+        <attr name="percentColor" />
+        <attr name="percentSize" />
+        <attr name="max"></attr>
+        <attr name="textIsDisplayable"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="RoundProgressStatusBar">
+        <attr name="roundColor" />
+        <attr name="roundProgressColor" />
+        <attr name="roundWidth"></attr>
         <attr name="heartbeatColor" format="color" />
         <attr name="successColor" format="color" />
         <attr name="failedColor" format="color" />
-        <attr name="statusStrokeWidth" format="dimension"></attr>
+        <attr name="statusStrokeWidth"></attr>
         <attr name="android:textColor" />
         <attr name="android:textSize" />
-        <attr name="percentColor" format="reference|color" />
-        <attr name="percentSize" format="dimension" />
-        <attr name="max" format="integer"></attr>
-        <attr name="textIsDisplayable" format="boolean"></attr>
-        <attr name="style">
-            <enum name="STROKE" value="0"></enum>
-            <enum name="FILL" value="1"></enum>
-        </attr>
+        <attr name="percentColor" />
+        <attr name="percentSize" />
+        <attr name="max"></attr>
+        <attr name="textIsDisplayable"></attr>
     </declare-styleable>
 
     <declare-styleable name="ResultStatusView">
