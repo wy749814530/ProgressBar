@@ -3,7 +3,7 @@
 
 ## 布局属性
 ``` java
-    <com.mcustom.library.Progressbar
+    <com.mcustom.library.LineProgressbar
         android:id="@+id/progressbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
