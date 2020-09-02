@@ -18,7 +18,7 @@ import com.mcustom.library.RoundProgressBar;
  * description：
  */
 public class ProgressActivity extends AppCompatActivity {
-    LineProgressbar progressbar;
+    LineProgressbar progressbar, progressbar2;
     RoundProgressBar roundProgressBar2;
     EditText edMinProgress, edMaxProgress, edTextSize, edUnit, edInnerRadius, edOuterRadius;
     Button btnMin;
@@ -27,6 +27,7 @@ public class ProgressActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress);
+        progressbar2 = findViewById(R.id.progressbar2);
         progressbar = findViewById(R.id.progressbar);
         roundProgressBar2 = findViewById(R.id.roundProgressBar2);
         edMinProgress = findViewById(R.id.edMinProgress);
@@ -39,6 +40,7 @@ public class ProgressActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(LineProgressbar progressbar, int progress) {
                 Log.i("MainActivity", "progress : " + progress);
+                progressbar2.setProgress(progress);
             }
 
             @Override

@@ -22,6 +22,7 @@
             <enum name="top_move" value="1" />
             <enum name="gone" value="2" />
         </attr>
+        <attr name="showPoint" format="boolean" />
         <attr name="textPointColor" format="color" />
         <attr name="textPointSize" format="dimension" />
         <attr name="progressHeight" format="dimension" />

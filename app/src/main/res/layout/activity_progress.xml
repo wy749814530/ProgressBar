@@ -110,11 +110,23 @@
     </LinearLayout>
 
     <com.mcustom.library.LineProgressbar
+        android:id="@+id/progressbar2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        apps:maxProgress="100"
+        apps:minProgress="0"
+        apps:progressSpendColor="#25d1d3"
+        apps:progressbgColor="#eeeeee"
+        apps:showPoint="false"
+        apps:textPointSize="18dp" />
+
+    <com.mcustom.library.LineProgressbar
         android:id="@+id/progressbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         apps:defaultProgress="15"
         apps:innerPointRadius="5"

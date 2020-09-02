@@ -58,7 +58,7 @@ public class LineProgressbar extends View implements View.OnTouchListener {
     private int progressbgColor = 0xff999999;
     private int progressSpendColor = 0xff25d1d3;
     private int progressHeight = 6; // 进度条高度
-    private int progress = 50;       // 进度
+    private int progress = 0;       // 进度
     /**
      * 当前进度坐标
      */
@@ -84,7 +84,8 @@ public class LineProgressbar extends View implements View.OnTouchListener {
     private float marginLeft;
     private float marginRight;
     private float progressBarWidth = 1080;
-
+    // 是否显示中间进度点
+    private boolean showPoint = true;
     private OnProgressbarChangeListener mListener;
 
     public LineProgressbar(Context context) {
@@ -116,6 +117,7 @@ public class LineProgressbar extends View implements View.OnTouchListener {
             progressSpendColor = attributes.getColor(R.styleable.CustomProgressbar_progressSpendColor, progressSpendColor);
             progressHeight = (int) attributes.getDimension(R.styleable.CustomProgressbar_progressHeight, progressHeight);
             progress = attributes.getInt(R.styleable.CustomProgressbar_defaultProgress, progress);
+            showPoint = attributes.getBoolean(R.styleable.CustomProgressbar_showPoint, true);
             maxProgress = attributes.getInt(R.styleable.CustomProgressbar_maxProgress, 100);
             minProgress = attributes.getInt(R.styleable.CustomProgressbar_minProgress, 0);
             innerRadius = attributes.getInt(R.styleable.CustomProgressbar_innerPointRadius, 0);
@@ -196,75 +198,91 @@ public class LineProgressbar extends View implements View.OnTouchListener {
     }
 
     protected void invalidateLayout() {
-        float progressH;
-        String text = "159" + unit;
-        textPoint.getTextBounds(text, 0, text.length(), textRect);
-        if (pointImageResId != 0) {
-            bitmap = BitmapFactory.decodeResource(getResources(), pointImageResId);
-            if (bitmap != null) {
-                outerRadius = bitmap.getHeight() / 2;
-                innerRadius = outerRadius;
+        if (getHeight() > 0 && getWidth() > 0) {
+            if (showPoint) {
+                float progressH;
+                String text = "159" + unit;
+                textPoint.getTextBounds(text, 0, text.length(), textRect);
+                if (pointImageResId != 0) {
+                    bitmap = BitmapFactory.decodeResource(getResources(), pointImageResId);
+                    if (bitmap != null) {
+                        outerRadius = bitmap.getHeight() / 2;
+                        innerRadius = outerRadius;
+                    }
+                }
+
+                marginLeft = marginRight = (int) (outerRadius + 4);
+                progressBarWidth = getWidth() - marginLeft - marginRight;
+                progressH = progressHeight * 1.4f;
+                if (progressHeight < outerRadius) {
+                    progressH = outerRadius * 2;
+                }
+
+                int maxHeight;
+                if (relativeSite == SITE.GONE) {
+                    maxHeight = (int) (marginTopAndBottom + progressH + marginTopAndBottom);
+                } else {
+                    maxHeight = (int) (marginTopAndBottom + textRect.height() + marginTopAndBottom + progressH + marginTopAndBottom);
+                }
+
+                ViewGroup.LayoutParams layoutParams = getLayoutParams();
+                layoutParams.height = maxHeight;
+                layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                setLayoutParams(layoutParams);
+            } else {
+                marginRight = 0;
+                marginLeft = 0;
+                progressBarWidth = getWidth();
             }
         }
-
-        marginLeft = marginRight = (int) (outerRadius + 4);
-        progressBarWidth = getWidth() - marginLeft - marginRight;
-        progressH = progressHeight * 1.4f;
-        if (progressHeight < outerRadius) {
-            progressH = outerRadius * 2;
-        }
-
-        int maxHeight;
-        if (relativeSite == SITE.GONE) {
-            maxHeight = (int) (marginTopAndBottom + progressH + marginTopAndBottom);
-        } else {
-            maxHeight = (int) (marginTopAndBottom + textRect.height() + marginTopAndBottom + progressH + marginTopAndBottom);
-        }
-
-        ViewGroup.LayoutParams layoutParams = getLayoutParams();
-        layoutParams.height = maxHeight;
-        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        setLayoutParams(layoutParams);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        float progressTop = getHeight() - outerRadius - marginTopAndBottom;
-        float progressLeft = getProgress2dp(progress);
-        //画进度条背景色
-        canvas.drawRect(marginLeft, progressTop, getWidth() - marginRight, progressTop + progressHeight, progressPoint);
-        // 画进度
-        canvas.drawRect(marginLeft, progressTop, progressLeft, progressTop + progressHeight, progressSpendPoint);
+        if (showPoint) {
+            float progressTop = getHeight() - outerRadius - marginTopAndBottom;
+            float progressLeft = getProgress2dp(progress);
+            //画进度条背景色
+            canvas.drawRect(marginLeft, progressTop, getWidth() - marginRight, progressTop + progressHeight, progressPoint);
+            // 画进度
+            canvas.drawRect(marginLeft, progressTop, progressLeft, progressTop + progressHeight, progressSpendPoint);
 
-        if (bitmap == null) {
-            // 画圆点
-            canvas.drawCircle(progressLeft, progressTop + progressHeight / 2, innerRadius, progressSpendPoint);
-            canvas.drawCircle(progressLeft, progressTop + progressHeight / 2, outerRadius, circleHollowPoint);
-        } else {
-            canvas.drawBitmap(bitmap, progressLeft - bitmap.getWidth() / 2, progressTop + progressHeight / 2 - bitmap.getHeight() / 2, progressSpendPoint);
-        }
-
-
-        CurrentX = progressLeft;
-        CurrentY = progressTop + progressHeight / 2;
-        if (relativeSite != SITE.GONE) {
-            String text = progress + unit;
-            textPoint.getTextBounds(text, 0, text.length(), textRect);
-            if (relativeSite == SITE.TOP_MOVE) {
-                float textX = progressLeft - textRect.width() / 2;
-                if ((progressLeft + textRect.width() - 10) > getWidth()) {
-                    //在最右边
-                    textX = getWidth() - textRect.width() - 10;
-                } else if (textX < 10) {
-                    // 在最左边
-                    textX = 10;
-                }
-                canvas.drawText(text, textX - textRect.left, marginTopAndBottom - textRect.top, textPoint);
+            if (bitmap == null) {
+                // 画圆点
+                canvas.drawCircle(progressLeft, progressTop + progressHeight / 2, innerRadius, progressSpendPoint);
+                canvas.drawCircle(progressLeft, progressTop + progressHeight / 2, outerRadius, circleHollowPoint);
             } else {
-                float textX = (getWidth() - textRect.width()) / 2;
-                canvas.drawText(text, textX - textRect.left, marginTopAndBottom - textRect.top, textPoint);
+                canvas.drawBitmap(bitmap, progressLeft - bitmap.getWidth() / 2, progressTop + progressHeight / 2 - bitmap.getHeight() / 2, progressSpendPoint);
             }
+
+
+            CurrentX = progressLeft;
+            CurrentY = progressTop + progressHeight / 2;
+            if (relativeSite != SITE.GONE) {
+                String text = progress + unit;
+                textPoint.getTextBounds(text, 0, text.length(), textRect);
+                if (relativeSite == SITE.TOP_MOVE) {
+                    float textX = progressLeft - textRect.width() / 2;
+                    if ((progressLeft + textRect.width() - 10) > getWidth()) {
+                        //在最右边
+                        textX = getWidth() - textRect.width() - 10;
+                    } else if (textX < 10) {
+                        // 在最左边
+                        textX = 10;
+                    }
+                    canvas.drawText(text, textX - textRect.left, marginTopAndBottom - textRect.top, textPoint);
+                } else {
+                    float textX = (getWidth() - textRect.width()) / 2;
+                    canvas.drawText(text, textX - textRect.left, marginTopAndBottom - textRect.top, textPoint);
+                }
+            }
+        } else {
+            float progressLeft = getProgress2dp(progress);
+            //画进度条背景色
+            canvas.drawRect(0, 0, getWidth(), getHeight(), progressPoint);
+            // 画进度
+            canvas.drawRect(0, 0, progressLeft, getHeight(), progressSpendPoint);
         }
     }
 
