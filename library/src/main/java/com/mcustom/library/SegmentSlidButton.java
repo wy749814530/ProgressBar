@@ -306,6 +306,17 @@ public class SegmentSlidButton extends View {
         slidButtonListener = listener;
     }
 
+    public void setCurrentSection(String section) {
+        if (sectionText != null && sectionText.length > 0) {
+            for (int i = 0; i < sectionText.length; i++) {
+                if (section.equals(sectionText[i]) && sectionPoint.containsKey(i)) {
+                    CURRENT_ZOOM = sectionPoint.get(i);
+                }
+            }
+            invalidate();
+        }
+    }
+
     public interface SlidButtonListener {
         void onSlidSectionValue(String sectionText);
     }

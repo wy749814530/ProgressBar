@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green_25d1d3"
+    android:orientation="vertical"
     tools:context="com.mcustom.progressbar.SegmentSlidActivity">
 
     <com.mcustom.library.SegmentSlidButton
@@ -20,4 +21,28 @@
         app:percentColor="#66666655"
         app:textSection="15S,30S,45S,60S"
         app:text_marginTop="5dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick15View"
+        android:text="15s" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick30View"
+        android:text="30s" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick45View"
+        android:text="45s" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick60View"
+        android:text="60s" />
 </LinearLayout>
