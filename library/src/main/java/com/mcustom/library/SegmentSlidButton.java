@@ -180,6 +180,15 @@ public class SegmentSlidButton extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         Log.i(TAG, "onMeasure : " + getWidth() + " , " + getHeight());
+
+        Rect rect = new Rect();
+        String zoom = "55s";
+        textPercentPaint.getTextBounds(zoom, 0, zoom.length(), rect);
+
+        ViewGroup.LayoutParams layoutParams = getLayoutParams();
+        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        layoutParams.height = (int) (outerRadius * 2 + padding * 2 + +textMarginTop) + rect.height() / 2 - rect.top;
+        setLayoutParams(layoutParams);
     }
 
     private float getMaxValue() {
