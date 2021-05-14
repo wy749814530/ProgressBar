@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green_25d1d3"
+    tools:context="com.mcustom.progressbar.SegmentSlidActivity">
+
+    <com.mcustom.library.SegmentSlidButton
+        android:id="@+id/segment_slid_button"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="50dp"
+        app:innerRadius="4dp"
+        app:innerWidth="1dp"
+        app:lineWidth="3dp"
+        app:outerRadius="8dp"
+        app:outerWidth="2dp"
+        app:percentColor="#66666677"
+        app:textSection="15S,30S,45S,60S"
+        app:text_marginTop="5dp" />
+</LinearLayout>

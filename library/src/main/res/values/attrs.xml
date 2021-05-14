@@ -2,7 +2,6 @@
 <resources>
 
     <attr name="maxProgress" format="integer" />
-
     <attr name="roundColor" format="color" />
     <attr name="roundProgressColor" format="color" />
     <attr name="roundWidth" format="dimension"></attr>
@@ -11,6 +10,14 @@
     <attr name="percentSize" format="dimension" />
     <attr name="max" format="integer"></attr>
     <attr name="textIsDisplayable" format="boolean"></attr>
+    <attr name="selectColor" format="color" />
+    <attr name="innerRadius" format="dimension"></attr>
+    <attr name="outerRadius" format="dimension"></attr>
+    <attr name="innerWidth" format="dimension"></attr>
+    <attr name="outerWidth" format="dimension"></attr>
+    <attr name="lineWidth" format="dimension"></attr>
+    <attr name="backgroundColor" format="color" />
+
     <attr name="style">
         <enum name="STROKE" value="0"></enum>
         <enum name="FILL" value="1"></enum>
@@ -86,5 +93,19 @@
         <attr name="android:textColor" format="color" />
         <attr name="progress" format="integer" />
         <attr name="maxProgress" />
+    </declare-styleable>
+
+    <declare-styleable name="SegmentSlidButton">
+        <attr name="android:textSize" />
+        <attr name="backgroundColor" />
+        <attr name="percentColor" />
+        <attr name="innerRadius" />
+        <attr name="outerRadius" />
+        <attr name="innerWidth" />
+        <attr name="outerWidth" />
+        <attr name="lineWidth" />
+        <attr name="selectColor" />
+        <attr name="textSection" format="string" />
+        <attr name="text_marginTop" format="dimension" />
     </declare-styleable>
 </resources>

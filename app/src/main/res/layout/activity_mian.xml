@@ -26,5 +26,11 @@
             android:text="成功失败状态"
             android:onClick="gotoResultStatus"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="分段按钮"
+            android:onClick="gotoSegmentSlidButton"/>
+
     </LinearLayout>
 </ScrollView>

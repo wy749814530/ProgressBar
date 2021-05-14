@@ -28,4 +28,8 @@ public class MainActivity extends AppCompatActivity {
     public void gotoResultStatus(View view) {
         startActivity(new Intent(this, ResultStatusActivity.class));
     }
+
+    public void gotoSegmentSlidButton(View view) {
+        startActivity(new Intent(this, SegmentSlidActivity.class));
+    }
 }

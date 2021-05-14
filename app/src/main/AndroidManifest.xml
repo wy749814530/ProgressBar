@@ -22,6 +22,8 @@
         <activity android:name=".ProgressActivity" />
 
         <activity android:name=".WaterWaveActivity" />
+
+        <activity android:name=".SegmentSlidActivity" />
     </application>
 
 </manifest>

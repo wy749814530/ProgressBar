@@ -28,6 +28,8 @@ import android.view.animation.ScaleAnimation;
  * @WYU-WIN
  * @date 2020/6/24 2031.
  * description：圆形进度圈，带完成状态
+ * <p>
+ * 成功状态动画，失败状态动画
  */
 public class RoundProgressStatusBar extends View {
     private String TAG = RoundProgressStatusBar.class.getSimpleName();
