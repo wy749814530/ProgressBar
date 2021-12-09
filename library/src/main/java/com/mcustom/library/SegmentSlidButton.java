@@ -21,6 +21,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -62,6 +64,7 @@ public class SegmentSlidButton extends View {
     Paint outerBGCPaint;
     Paint textPercentPaint;
     String[] sectionText;
+    String currentSection = "";
 
     int padding = 5;
     float textMarginTop = 10;
@@ -151,7 +154,7 @@ public class SegmentSlidButton extends View {
 
     float MIN_ZOOM_PX;
     float MAX_ZOOM_PX;
-    float CURRENT_ZOOM;
+    float CURRENT_ZOOM = 0f;
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
@@ -170,9 +173,26 @@ public class SegmentSlidButton extends View {
             layoutParams.height = (int) (outerRadius * 2 + padding * 2 + +textMarginTop) + rect.height() / 2 - rect.top;
             setLayoutParams(layoutParams);
 
+            float startX = outerRadius + padding;
+            if (sectionText != null && sectionText.length > 0) {
+                float value = getMaxValue() / (sectionText.length - 1);
+                for (int i = 0; i < sectionText.length; i++) {
+                    // 画圆圈
+                    float startPox = i * value + startX;
+                    if (!sectionPoint.containsKey(i)) {
+                        sectionPoint.put(i, startPox);
+                    }
+                }
+            }
+
             MIN_ZOOM_PX = outerRadius + padding;
             MAX_ZOOM_PX = getWidth() - outerRadius - padding;
-            CURRENT_ZOOM = MIN_ZOOM_PX;
+            if (!TextUtils.isEmpty(currentSection)) {
+                updataCurrentZoom();
+                currentSection = "";
+            } else {
+                CURRENT_ZOOM = MIN_ZOOM_PX;
+            }
         }
     }
 
@@ -198,14 +218,12 @@ public class SegmentSlidButton extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         float startX = outerRadius + padding;
         float startY = outerRadius + padding;
 
         float endX = getWidth() - outerRadius - padding;
         float endY = startY;
 
-        Log.i(TAG, " getWidth() :" + getWidth() + " , getHeight(): " + getHeight());
         // 画线条
         canvas.drawLine(startX, startY, endX, endY, linePaint);
 
@@ -216,9 +234,7 @@ public class SegmentSlidButton extends View {
             for (int i = 0; i < sectionText.length; i++) {
                 // 画圆圈
                 float startPox = i * value + startX;
-                if (!sectionPoint.containsKey(i)) {
-                    sectionPoint.put(i, startPox);
-                }
+
                 canvas.drawCircle(startPox, startY, outerRadius, outerBGCPaint);
                 canvas.drawCircle(startPox, startY, innerRadius, innnerCPaint);
                 canvas.drawCircle(startPox, startY, outerRadius, outerCPaint);
@@ -227,8 +243,6 @@ public class SegmentSlidButton extends View {
                 float textY = (outerRadius * 2 + padding * 2) + textMarginTop;
                 Rect rect = new Rect();
                 textPercentPaint.getTextBounds(sectionText[i], 0, sectionText[i].length(), rect);
-
-                Log.i(TAG, " rect.top : " + rect.top + ", rect.height() : " + rect.height() + " , marginTop : " + textMarginTop);
 
                 if (i == 0) {
                     canvas.drawText(sectionText[i], startPox + (rect.left - rect.width() / 2f), textY - rect.top - rect.height() / 2f + textMarginTop, textPercentPaint);
@@ -242,6 +256,8 @@ public class SegmentSlidButton extends View {
 
         innnerCPaint.setColor(selectColor);
         outerCPaint.setColor(selectColor);
+
+        Log.i(TAG, "onDraw() :: CURRENT_ZOOM ==> " + CURRENT_ZOOM);
         canvas.drawCircle(CURRENT_ZOOM, startY, outerRadius, outerBGCPaint);
         canvas.drawCircle(CURRENT_ZOOM, startY, innerRadius, innnerCPaint);
         canvas.drawCircle(CURRENT_ZOOM, startY, outerRadius, outerCPaint);
@@ -306,15 +322,20 @@ public class SegmentSlidButton extends View {
         slidButtonListener = listener;
     }
 
-    public void setCurrentSection(String section) {
+    private void updataCurrentZoom() {
         if (sectionText != null && sectionText.length > 0) {
             for (int i = 0; i < sectionText.length; i++) {
-                if (section.equals(sectionText[i]) && sectionPoint.containsKey(i)) {
+                if (currentSection.equals(sectionText[i]) && sectionPoint.containsKey(i)) {
                     CURRENT_ZOOM = sectionPoint.get(i);
                 }
             }
-            invalidate();
         }
+    }
+
+    public void setCurrentSection(String section) {
+        currentSection = section;
+        updataCurrentZoom();
+        postInvalidate();
     }
 
     public interface SlidButtonListener {

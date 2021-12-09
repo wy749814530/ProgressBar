@@ -23,6 +23,8 @@ public class SegmentSlidActivity extends AppCompatActivity {
                 Log.i(TAG, "sectionText : " + sectionText);
             }
         });
+
+        slidButton.setCurrentSection("30S");
     }
 
     public void onClick15View(View view) {
