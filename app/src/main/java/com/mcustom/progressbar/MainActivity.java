@@ -32,4 +32,8 @@ public class MainActivity extends AppCompatActivity {
     public void gotoSegmentSlidButton(View view) {
         startActivity(new Intent(this, SegmentSlidActivity.class));
     }
+
+    public void gotoRoundProgressStatusBar(View view) {
+        startActivity(new Intent(this, RoundProgressStatusBarActivity.class));
+    }
 }

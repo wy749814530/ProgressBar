@@ -16,7 +16,11 @@
     <attr name="innerWidth" format="dimension"></attr>
     <attr name="outerWidth" format="dimension"></attr>
     <attr name="lineWidth" format="dimension"></attr>
+    <attr name="radiusWidth" format="dimension"></attr>
+    <attr name="text_marginTop" format="dimension" />
     <attr name="backgroundColor" format="color" />
+    <attr name="textSection" format="string" />
+    <attr name="gradientColors" format="string" />
 
     <attr name="style">
         <enum name="STROKE" value="0"></enum>
@@ -105,7 +109,20 @@
         <attr name="outerWidth" />
         <attr name="lineWidth" />
         <attr name="selectColor" />
-        <attr name="textSection" format="string" />
-        <attr name="text_marginTop" format="dimension" />
+        <attr name="textSection" />
+        <attr name="text_marginTop" />
+    </declare-styleable>
+
+    <declare-styleable name="SegmentSlidBar">
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="selectColor" />
+        <attr name="backgroundColor" />
+        <attr name="gradientColors" />
+        <attr name="outerRadius" />
+        <attr name="outerWidth" />
+        <attr name="lineWidth" />
+        <attr name="textSection" />
+        <attr name="text_marginTop" />
     </declare-styleable>
 </resources>

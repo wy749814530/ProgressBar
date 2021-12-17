@@ -25,21 +25,23 @@ public class SegmentSlidActivity extends AppCompatActivity {
         });
 
         slidButton.setCurrentSection("30S");
+
+        slidButton.setSections(new String[]{"A", "B", "C", "D"});
     }
 
     public void onClick15View(View view) {
-        slidButton.setCurrentSection("15S");
+        slidButton.setCurrentSection("A");
     }
 
     public void onClick30View(View view) {
-        slidButton.setCurrentSection("30S");
+        slidButton.setCurrentSection("B");
     }
 
     public void onClick45View(View view) {
-        slidButton.setCurrentSection("45S");
+        slidButton.setCurrentSection("C");
     }
 
     public void onClick60View(View view) {
-        slidButton.setCurrentSection("60S");
+        slidButton.setCurrentSection("D");
     }
 }

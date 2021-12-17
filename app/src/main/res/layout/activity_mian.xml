@@ -11,26 +11,31 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="进度条"
-            android:onClick="gotoPregress"/>
+            android:onClick="gotoPregress"
+            android:text="进度条" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="水波纹进度"
-            android:onClick="gotoWaterPregress"/>
+            android:onClick="gotoWaterPregress"
+            android:text="水波纹进度" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="成功失败状态"
-            android:onClick="gotoResultStatus"/>
+            android:onClick="gotoResultStatus"
+            android:text="成功失败状态" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="分段按钮"
-            android:onClick="gotoSegmentSlidButton"/>
+            android:onClick="gotoSegmentSlidButton"
+            android:text="分段按钮" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="gotoRoundProgressStatusBar"
+            android:text="进度分级按钮" />
     </LinearLayout>
 </ScrollView>

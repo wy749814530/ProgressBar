@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Work/MyLibrary/trunk/ProgressBar/app/src/main/res/layout/activity_mian.xml" value="0.1" />
+        <entry key="..\:/Work/MyLibrary/trunk/ProgressBar/app/src/main/res/layout/activity_round_progress_status_bar.xml" value="0.25364583333333335" />
+        <entry key="..\:/Work/MyLibrary/trunk/ProgressBar/app/src/main/res/layout/activity_segment_slid.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

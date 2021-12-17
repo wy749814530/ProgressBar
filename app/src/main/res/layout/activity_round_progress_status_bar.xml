@@ -4,45 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green_25d1d3"
+    android:background="#9f9f9f"
     android:orientation="vertical"
-    tools:context="com.mcustom.progressbar.SegmentSlidActivity">
+    tools:context=".RoundProgressStatusBarActivity">
 
-    <com.mcustom.library.SegmentSlidButton
-        android:id="@+id/segment_slid_button"
+    <com.mcustom.library.SegmentSlidBar
+        android:id="@+id/segment_slid_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        app:innerRadius="4dp"
-        app:innerWidth="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="10dp"
+        android:textSize="10sp"
+        app:backgroundColor="#FFFFFF"
+        app:gradientColors="#49A6F6, #92D556, #FDBC84"
         app:lineWidth="3dp"
-        app:outerRadius="8dp"
+        app:outerRadius="7dp"
         app:outerWidth="2dp"
-        app:percentColor="#66666655"
-        app:textSection="15S,30S"
+        app:textSection="A哈哈,B那快,C空手,C白刃"
         app:text_marginTop="5dp" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick15View"
-        android:text="A" />
+        android:text="AAA" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick30View"
-        android:text="B" />
+        android:text="BBB" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick45View"
-        android:text="C" />
+        android:text="CCC" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick60View"
-        android:text="D" />
+        android:text="DDD" />
 </LinearLayout>

@@ -1,7 +1,5 @@
 package com.mcustom.library;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.Resources;
@@ -9,7 +7,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -21,9 +18,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -65,7 +59,7 @@ public class SegmentSlidButton extends View {
     Paint textPercentPaint;
     String[] sectionText;
     String currentSection = "";
-
+    boolean IS_SECTIONS_CHANGED = false;
     int padding = 5;
     float textMarginTop = 10;
     HashMap<Integer, Float> sectionPoint = new HashMap<>();
@@ -234,7 +228,19 @@ public class SegmentSlidButton extends View {
             for (int i = 0; i < sectionText.length; i++) {
                 // 画圆圈
                 float startPox = i * value + startX;
+                if (IS_SECTIONS_CHANGED) {
+                    if (!sectionPoint.containsKey(i)) {
+                        sectionPoint.put(i, startPox);
+                    }
+                    if (!TextUtils.isEmpty(currentSection)) {
+                        updataCurrentZoom();
+                        currentSection = "";
+                    } else {
+                        CURRENT_ZOOM = MIN_ZOOM_PX;
+                    }
+                    IS_SECTIONS_CHANGED = false;
 
+                }
                 canvas.drawCircle(startPox, startY, outerRadius, outerBGCPaint);
                 canvas.drawCircle(startPox, startY, innerRadius, innnerCPaint);
                 canvas.drawCircle(startPox, startY, outerRadius, outerCPaint);
@@ -330,6 +336,12 @@ public class SegmentSlidButton extends View {
                 }
             }
         }
+    }
+
+    public void setSections(String[] sections) {
+        sectionText = sections;
+        IS_SECTIONS_CHANGED = true;
+        postInvalidate();
     }
 
     public void setCurrentSection(String section) {
